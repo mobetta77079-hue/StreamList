@@ -1,59 +1,77 @@
-body {
-  margin: 0;
+.app {
   font-family: Arial, sans-serif;
-  background-color: #101820;
-  color: white;
+  background-color: #f4f4f9;
+  min-height: 100vh;
 }
 
 .navbar {
-  background-color: #1f2937;
-  padding: 20px;
+  background-color: #222;
+  color: white;
+  padding: 15px;
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
   align-items: center;
 }
 
 .navbar a {
   color: white;
-  margin-left: 20px;
   text-decoration: none;
-  font-weight: bold;
 }
 
-.navbar a:hover {
-  color: #facc15;
+.container {
+  width: 80%;
+  max-width: 700px;
+  margin: 40px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
 }
 
-.page {
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 30px;
-  background-color: #1f2937;
-  border-radius: 12px;
-  text-align: center;
+.form {
+  display: flex;
+  gap: 10px;
 }
 
-.stream-form {
-  margin-top: 25px;
+.form input {
+  flex: 1;
+  padding: 10px;
 }
 
-.stream-form input {
-  padding: 12px;
-  width: 60%;
-  border: none;
-  border-radius: 8px;
-  margin-right: 10px;
-}
-
-.stream-form button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  background-color: #facc15;
-  font-weight: bold;
+.form button,
+.buttons button {
+  padding: 10px;
   cursor: pointer;
 }
 
-.stream-form button:hover {
-  background-color: #eab308;
+.list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  background: #eee;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+button {
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  opacity: 0.8;
 }
