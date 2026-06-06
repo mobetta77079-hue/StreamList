@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 * {
   box-sizing: border-box;
 }
@@ -10,22 +6,16 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
-<<<<<<< HEAD
   color: #222;
 }
 
 /* Navbar */
-=======
-}
-
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 .navbar {
   background-color: #222;
   color: white;
   padding: 15px 25px;
   display: flex;
   align-items: center;
-<<<<<<< HEAD
   justify-content: space-between;
 }
 
@@ -35,12 +25,6 @@ body {
 }
 
 .logo h2 {
-=======
-  gap: 30px;
-}
-
-.navbar h2 {
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
   margin: 0;
 }
 
@@ -60,49 +44,36 @@ body {
   text-decoration: underline;
 }
 
-<<<<<<< HEAD
 /* Page Layout */
-=======
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 .page,
 .container {
   padding: 25px;
 }
 
-<<<<<<< HEAD
 /* Movie Search */
-=======
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 .search-form {
   display: flex;
   gap: 10px;
   margin-bottom: 25px;
-<<<<<<< HEAD
   flex-wrap: wrap;
 }
 
 .search-form label {
   width: 100%;
   font-weight: bold;
-=======
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 }
 
 .search-form input {
   padding: 10px;
   width: 300px;
-<<<<<<< HEAD
   border: 1px solid #ccc;
   border-radius: 5px;
-=======
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 }
 
 .search-form button,
 .movie-card button {
   padding: 10px 15px;
   cursor: pointer;
-<<<<<<< HEAD
   border: none;
   background-color: #222;
   color: white;
@@ -120,10 +91,6 @@ body {
 }
 
 /* Movie Cards */
-=======
-}
-
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 .movie-list {
   display: flex;
   flex-wrap: wrap;
@@ -133,11 +100,7 @@ body {
 .movie-card {
   background: white;
   padding: 15px;
-<<<<<<< HEAD
   border-radius: 10px;
-=======
-  border-radius: 8px;
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
   width: 250px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -145,7 +108,6 @@ body {
 .movie-card img {
   width: 100%;
   border-radius: 5px;
-<<<<<<< HEAD
   margin-top: 10px;
 }
 
@@ -282,84 +244,4 @@ body {
   .cart-summary {
     width: 100%;
   }
-=======
-=======
-.app {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  min-height: 100vh;
-}
-
-.navbar {
-  background-color: #222;
-  color: white;
-  padding: 15px;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-}
-
-.container {
-  width: 80%;
-  max-width: 700px;
-  margin: 40px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 10px;
-}
-
-.form {
-  display: flex;
-  gap: 10px;
-}
-
-.form input {
-  flex: 1;
-  padding: 10px;
-}
-
-.form button,
-.buttons button {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-.list li {
-  display: flex;
-  justify-content: space-between;
-  background: #eee;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-}
-
-.completed span {
-  text-decoration: line-through;
-  color: gray;
-}
-
-.buttons {
-  display: flex;
-  gap: 8px;
-}
-button {
-  border: none;
-  border-radius: 5px;
-}
-
-button:hover {
-  opacity: 0.8;
->>>>>>> dbf9009ac6de37214e9d1350b7905fbfe0072740
->>>>>>> ef67eb777223ecac55c780229bc8c16bf9238b7e
 }
