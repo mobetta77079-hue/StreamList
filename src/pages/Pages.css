@@ -35,6 +35,21 @@
     margin-bottom: 30px;
 }
 
+.page ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.page li {
+    margin: 10px 0;
+}
+
+.page li::before {
+    content: "✓ ";
+    color: #38bdf8;
+    font-weight: bold;
+}
+
 /* Movie */
 .movie-form {
     display: flex;
@@ -208,4 +223,29 @@
     color: white;
     padding: 15px;
     text-align: center;
+}
+
+/* Credit Card */
+
+.credit-card-form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.credit-card-form input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.credit-card-form button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #38bdf8;
+    color: white;
+    cursor: pointer;
 }

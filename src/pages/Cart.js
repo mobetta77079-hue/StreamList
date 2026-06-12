@@ -1,4 +1,5 @@
-import "./Pages.css"; 
+import "./Pages.css";
+import {Link} from "react-router-dom";
 
 function Cart({cart, setCart}) {
     //Remove Item from cart
@@ -50,6 +51,8 @@ function Cart({cart, setCart}) {
             </div>
 
             <h3>Total: ${totalPrice.toFixed(2)}</h3>
+
+            <Link to = "/checkout"><button>Proceed to Checkout</button></Link>
         </>)}
     </div>
     );
