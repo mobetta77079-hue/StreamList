@@ -1,53 +1,73 @@
-import data from "../data";
+import {
+  FaUser,
+  FaUsers,
+  FaGlobe,
+  FaShareAlt,
+  FaTshirt,
+  FaMobileAlt,
+} from "react-icons/fa";
 import "./Pages.css";
 
-function Subscriptions({cart, setCart, setWarning}) {
-
-  // Add Item to Cart
-  const addToCart = (item) => {
-
-    const isSubscription = item.id <= 4;
-
-    const existingSubscription = cart.find((cartItem) => cartItem.id <= 4);
-
-    // Prevent multiple subscriptions
-    if (isSubscription && existingSubscription) {
-
-      setWarning("Only one subscription can be added at a time.");
-
-      setTimeout(() => {setWarning("");
-      }, 3000);
-
-      return;
-    }
-
-    // Check if item already exists
-    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-
-    // Allow EZTech items multiple times
-    if (existingItem && item.id > 4) {
-      setCart(cart.map((cartItem) => cartItem.id === item.id ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem));
-    } else {
-      setCart([...cart, {id: item.id, title: item.service, price: item.price, quantity: 1, image: item.img}]);
-    }
-  };
+function Subscriptions({ addToCart }) {
+  const items = [
+    {
+      id: 101,
+      name: "Basic Subscription",
+      description: "For one User",
+      price: 4.99,
+      icon: <FaUser size={70} />,
+    },
+    {
+      id: 102,
+      name: "Gold Subscription",
+      description: "Share with Family",
+      price: 9.99,
+      icon: <FaUsers size={70} />,
+    },
+    {
+      id: 103,
+      name: "Premium Subscription",
+      description: "Share with the World",
+      price: 12.99,
+      icon: <FaGlobe size={70} />,
+    },
+    {
+      id: 104,
+      name: "Social Media Sharing Subscription",
+      description: "Share your list",
+      price: 2.99,
+      icon: <FaShareAlt size={70} />,
+    },
+    {
+      id: 201,
+      name: "EZ Techmerizing",
+      description: "Techmerize your friends",
+      price: 25.99,
+      icon: <FaTshirt size={70} />,
+    },
+    {
+      id: 202,
+      name: "EZ Tech Case",
+      description: "Mesmerize your friends",
+      price: 20.99,
+      icon: <FaMobileAlt size={70} />,
+    },
+  ];
 
   return (
     <div className="page">
-
-      <h2>Subscriptions</h2>
+      <h1>Subscriptions & Merchandise</h1>
 
       <div className="subscription-grid">
+        {items.map((item) => (
+          <div key={item.id} className="subscription-card">
+            <div className="subscription-icon">{item.icon}</div>
 
-        {data.map((item) => (
+            <h2>{item.name}</h2>
 
-          <div key = {item.id} className="subscription-card">
-            <img src={item.img} alt={item.service}/>
+            <p>{item.description}</p>
 
-            <h3>{item.service}</h3>
-            <p>{item.serviceInfo}</p>
-
-            <h4>${item.price}</h4>
+            <h3>${item.price.toFixed(2)}</h3>
 
             <button onClick={() => addToCart(item)}>Add to Cart</button>
           </div>

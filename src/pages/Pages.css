@@ -4,7 +4,8 @@
     gap: 10px;
 }
 
-.actions button, .movie-item button {
+.actions button,
+.movie-item button {
     border: none;
     background: none;
     color: white;
@@ -24,6 +25,7 @@
     color: white;
 }
 
+.page h1,
 .page h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
@@ -32,7 +34,7 @@
 
 .page p {
     font-size: 1.2rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .page ul {
@@ -50,7 +52,7 @@
     font-weight: bold;
 }
 
-/* Movie */
+/* Movie Form */
 .movie-form {
     display: flex;
     justify-content: center;
@@ -62,7 +64,7 @@
     padding: 12px;
     width: 300px;
     border: 2px solid #ccc;
-    border-radius: 8px; 
+    border-radius: 8px;
     font-size: 1rem;
 }
 
@@ -73,13 +75,13 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .movie-form button:hover {
     background-color: #0ea5e9;
 }
 
+/* Movie List */
 .movie-list {
     max-width: 700px;
     margin: auto;
@@ -96,6 +98,16 @@
     transition: 0.3s;
 }
 
+.movie-item:hover {
+    transform: scale(1.02);
+}
+
+.completed span {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* Movie Grid */
 .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -123,15 +135,6 @@
     margin-top: 15px;
 }
 
-.movie-item:hover {
-    transform: scale(1.02);
-}
-
-.completed span {
-    text-decoration: line-through;
-    opacity: 0.6;
-}
-
 .movie-card button {
     margin-top: 15px;
     padding: 10px 20px;
@@ -140,6 +143,10 @@
     background-color: #38bdf8;
     color: white;
     cursor: pointer;
+}
+
+.movie-card button:hover {
+    background-color: #0ea5e9;
 }
 
 /* Cart */
@@ -173,51 +180,79 @@
     cursor: pointer;
 }
 
+.cart-item button:hover {
+    background-color: #0ea5e9;
+}
+
 /* Quantity Controls */
 .quantity-controls {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-top: 10px;
 }
 
-/* Subscriptions */
+/* Subscription Plans */
 .subscription-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     margin-top: 30px;
 }
 
 .subscription-card {
     background-color: #1e293b;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
     text-align: center;
     transition: 0.3s;
 }
 
 .subscription-card:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
 }
 
-.subscription-card img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
+.subscription-icon {
+    color: #38bdf8;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.subscription-card h2 {
+    margin-bottom: 15px;
+}
+
+.subscription-card p {
+    margin-bottom: 15px;
+}
+
+.subscription-card h3 {
+    margin-bottom: 20px;
+    color: #38bdf8;
 }
 
 .subscription-card button {
-    margin-top: 15px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
     background-color: #38bdf8;
     color: white;
     cursor: pointer;
+    font-size: 1rem;
 }
 
+.subscription-card button:hover {
+    background-color: #0ea5e9;
+}
+
+.subscription-card button:disabled {
+    background-color: #64748b;
+    cursor: not-allowed;
+}
+
+/* Warning Banner */
 .warning {
     background-color: #ef4444;
     color: white;
@@ -225,8 +260,7 @@
     text-align: center;
 }
 
-/* Credit Card */
-
+/* Credit Card Form */
 .credit-card-form {
     max-width: 500px;
     margin: auto;
@@ -248,4 +282,8 @@
     background-color: #38bdf8;
     color: white;
     cursor: pointer;
+}
+
+.credit-card-form button:hover {
+    background-color: #0ea5e9;
 }

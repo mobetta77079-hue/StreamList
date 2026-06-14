@@ -1,57 +1,104 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import {useState, useEffect} from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import Navbar from "./components/Navbar";
-
-import StreamList from "./pages/StreamList";
 import Movies from "./pages/Movies";
-import Subscriptions from "./pages/Subscriptions";
 import Cart from "./pages/Cart";
-import About from "./pages/About";
+import Subscriptions from "./pages/Subscriptions";
+import MovieSearch from "./pages/MovieSearch";
 import Login from "./pages/Login";
-import Checkout from "./pages/Checkout";
-import ProtectedRoute from "./components/ProtectedRoute";
 
-import './App.css';
+import "./App.css";
 
 function App() {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
-
-    return savedCart ? JSON.parse(savedCart) : [];
+  const [user, setUser] = useState(() => {
+    return localStorage.getItem("loggedIn") === "true";
   });
 
-  const [warning, setWarning] = useState("");
+  const [cart, setCart] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("streamlist-cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch {
+      return [];
+    }
+  });
 
-  const [user, setUser] = useState(localStorage.getItem("loggedIn") === "true");
-
-  // Save cart to localStorage
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("streamlist-cart", JSON.stringify(cart));
   }, [cart]);
+
+  const addToCart = (item) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      }
+
+      return [...prevCart, { ...item, quantity: 1 }];
+    });
+  };
+
+  const updateQuantity = (id, amount) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(item.quantity + amount, 1) }
+          : item
+      )
+    );
+  };
+
+  const removeFromCart = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("loggedIn");
+    setUser(false);
+  };
+
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <Router>
-      <Navbar cart = {cart}/>
-        {warning && (
-          <div className = "warning">{warning}</div>
-        )}
-        <Routes>
-          <Route path = "/login" element = {<Login setUser = {setUser} />} />
+      <Navbar cartCount={cartCount} user={user} logout={logout} />
 
-          <Route path = "/" element = {<ProtectedRoute user = {user}><StreamList /></ProtectedRoute>} />
+      <Routes>
+        <Route path="/login" element={<Login setUser={setUser} />} />
 
-          <Route path = "/movies" element = {<ProtectedRoute user = {user}><Movies cart = {cart} setCart = {setCart}/></ProtectedRoute>}/>
+        <Route path="/" element={<Movies addToCart={addToCart} />} />
 
-          <Route path = "/subscriptions" element = {<ProtectedRoute user = {user}><Subscriptions cart = {cart} setCart = {setCart} setWarning = {setWarning}/></ProtectedRoute>} />
-          
-          <Route path = "/cart" element = {<ProtectedRoute user = {user}><Cart cart = {cart} setCart = {setCart}/></ProtectedRoute>} />
+        <Route path="/movies" element={<Movies addToCart={addToCart} />} />
 
-          <Route path = "/checkout" element = {<ProtectedRoute user = {user}><Checkout /></ProtectedRoute>} />
-            
-          <Route path = "/about" element = {<ProtectedRoute user = {user}><About /></ProtectedRoute>} />
+        <Route path="/search" element={<MovieSearch addToCart={addToCart} />} />
 
-        </Routes>
+        <Route
+          path="/subscriptions"
+          element={<Subscriptions addToCart={addToCart} />}
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              cart={cart}
+              updateQuantity={updateQuantity}
+              removeFromCart={removeFromCart}
+              clearCart={clearCart}
+            />
+          }
+        />
+      </Routes>
     </Router>
   );
 }
