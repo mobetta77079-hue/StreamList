@@ -1,61 +1,58 @@
+import { Link } from "react-router-dom";
 import "./Pages.css";
-import {Link} from "react-router-dom";
 
-function Cart({cart, setCart}) {
-    //Remove Item from cart
-    const removeItem = (id) => {
-        setCart(cart.filter((item) => item.id !== id));
-    };
+function Cart({ cart = [], updateQuantity, removeFromCart, clearCart }) {
+  const total = cart.reduce(
+    (sum, item) => sum + Number(item.price) * (item.quantity || 1),
+    0
+  );
 
-    //Add Quantity in cart
-    const increaseQuantity = (id) => {
-        setCart(cart.map((item) => item.id === id ? {...item, quantity: item.quantity + 1} : item));
-    };
+  return (
+    <div className="page">
+      <h1>Your Cart</h1>
 
-    //Decrease Quantity in cart
-    const decreaseQuantity = (id) => {setCart(cart.map((item) => {
-        if (item.id === id) {
-            return item.quantity > 1 ? {...item, quantity: item.quantity - 1} : null;
-        }
-        return item;
-    }).filter(Boolean));
-    };
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <>
+          <div className="cart-list">
+            {cart.map((item) => (
+              <div key={item.id} className="cart-item">
+                {item.image && (
+                  <img src={item.image} alt={item.title || item.name} />
+                )}
 
-    //Calculate the Total Price
-    const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+                <div>
+                  <h2>{item.title || item.name}</h2>
+                  <p>{item.description}</p>
+                  <p>${Number(item.price).toFixed(2)}</p>
 
-    return (
-        <div className = "page">
-            <h2>Your Cart</h2>
-            
-            {cart.length === 0 ? (<p>Your cart is currently empty</p>) : ( <>
-            <div className = "cart-list">
-                {cart.map((item) => (
-                    <div key = {item.id} className = "cart-item">
-                        <img src = {item.image} alt = {item.title}/>
+                  <div className="quantity-controls">
+                    <button onClick={() => updateQuantity(item.id, -1)}>-</button>
+                    <span>{item.quantity || 1}</span>
+                    <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                  </div>
 
-                        <div>
-                            <h3>{item.title}</h3>
-                            <p>Price: ${item.price}</p>
-                            
-                            <div className = "quantity-controls">
-                                <button onClick = {() => decreaseQuantity(item.id)}>-</button>
-                                <span>{item.quantity}</span>
-                                <button onClick = {() => increaseQuantity(item.id)}>+</button>
-                            </div>
+                  <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                </div>
+              </div>
+            ))}
+          </div>
 
-                            <button onClick = {() => removeItem(item.id)}>Remove</button>
-                        </div>
-                    </div>
-                ))}
-            </div>
+          <h2>Total: ${total.toFixed(2)}</h2>
 
-            <h3>Total: ${totalPrice.toFixed(2)}</h3>
+          <button onClick={clearCart}>Clear Cart</button>
 
-            <Link to = "/checkout"><button>Proceed to Checkout</button></Link>
-        </>)}
+          <br />
+          <br />
+
+          <Link to="/credit-card">
+            <button>Checkout</button>
+          </Link>
+        </>
+      )}
     </div>
-    );
+  );
 }
 
 export default Cart;

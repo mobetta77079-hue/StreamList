@@ -1,37 +1,53 @@
 .navbar {
-    background-color: #0f172a;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-}
-
-.logo {
-    color: #38bdf8;
-    font-size: 2rem;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  background-color: #0f172a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
 }
 
 .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    padding: 0;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
 .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: 0.3s;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
 }
 
 .nav-links a:hover {
-    color: #38bdf8;
+  color: #38bdf8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #38bdf8;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.cart-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  background-color: #38bdf8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.nav-btn:hover {
+  background-color: #0ea5e9;
 }

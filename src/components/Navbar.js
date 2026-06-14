@@ -1,34 +1,46 @@
-import {Link} from "react-router-dom";
-import {FaFilm, FaShoppingCart} from "react-icons/fa";
-
+import { Link } from "react-router-dom";
+import { FaFilm, FaShoppingCart, FaCreditCard } from "react-icons/fa";
 import "./Navbar.css";
 
-function Navbar({cart}) {
-    return (
-        <nav className = "navbar">
-            
-            <ul className = "nav-links">
-                <li>
-                    <Link to = "/">Home</Link>
-                </li>
-                <li>
-                    <Link to = "/movies">Movies</Link>
-                </li>
-                <li>
-                    <Link to = "/subscriptions">Subscriptions</Link>
-                </li>
-            </ul>
-            <Link to = "/" className = "logo"><FaFilm /><b>StreamList</b></Link>
-            <ul className = "nav-links">
-                <li>
-                    <Link to = "/cart" className = "cart-icon"><FaShoppingCart /><span>{cart.length}</span></Link>
-                </li>
-                <li>
-                    <Link to = "/about">About</Link>
-                </li>
-            </ul>
-        </nav>
-    );
+function Navbar({ cartCount = 0, user, logout }) {
+  return (
+    <nav className="navbar">
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/movies">Movies</Link>
+        <Link to="/search">Search</Link>
+        <Link to="/subscriptions">Subscriptions</Link>
+      </div>
+
+      <Link to="/" className="logo">
+        <FaFilm />
+        <span>StreamList</span>
+      </Link>
+
+      <div className="nav-links">
+        <Link to="/cart" className="cart-link">
+          <FaShoppingCart />
+          <span>{cartCount}</span>
+        </Link>
+
+        <Link to="/credit-card" className="credit-link">
+          <FaCreditCard />
+        </Link>
+
+        <Link to="/about">About</Link>
+
+        {user ? (
+          <button className="nav-btn" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="nav-btn">Login</button>
+          </Link>
+        )}
+      </div>
+    </nav>
+  );
 }
 
 export default Navbar;

@@ -6,6 +6,7 @@ import {
   FaTshirt,
   FaMobileAlt,
 } from "react-icons/fa";
+
 import "./Pages.css";
 
 function Subscriptions({ addToCart }) {
@@ -13,7 +14,7 @@ function Subscriptions({ addToCart }) {
     {
       id: 101,
       name: "Basic Subscription",
-      description: "For one User",
+      description: "For One User",
       price: 4.99,
       icon: <FaUser size={70} />,
     },
@@ -33,26 +34,37 @@ function Subscriptions({ addToCart }) {
     },
     {
       id: 104,
-      name: "Social Media Sharing Subscription",
-      description: "Share your list",
+      name: "Social Media Sharing",
+      description: "Share Your List",
       price: 2.99,
       icon: <FaShareAlt size={70} />,
     },
     {
       id: 201,
-      name: "EZ Techmerizing",
-      description: "Techmerize your friends",
+      name: "EZ Tech T-Shirt",
+      description: "Show Your List to the World",
       price: 25.99,
       icon: <FaTshirt size={70} />,
     },
     {
       id: 202,
-      name: "EZ Tech Case",
-      description: "Mesmerize your friends",
+      name: "EZ Tech Phone Case",
+      description: "Mesmerize Your Friends",
       price: 20.99,
       icon: <FaMobileAlt size={70} />,
     },
   ];
+
+  const handleAddToCart = (item) => {
+    addToCart({
+      id: item.id,
+      title: item.name,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      quantity: 1,
+    });
+  };
 
   return (
     <div className="page">
@@ -61,7 +73,9 @@ function Subscriptions({ addToCart }) {
       <div className="subscription-grid">
         {items.map((item) => (
           <div key={item.id} className="subscription-card">
-            <div className="subscription-icon">{item.icon}</div>
+            <div className="subscription-icon">
+              {item.icon}
+            </div>
 
             <h2>{item.name}</h2>
 
@@ -69,7 +83,9 @@ function Subscriptions({ addToCart }) {
 
             <h3>${item.price.toFixed(2)}</h3>
 
-            <button onClick={() => addToCart(item)}>Add to Cart</button>
+            <button onClick={() => handleAddToCart(item)}>
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>

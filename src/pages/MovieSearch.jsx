@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import "./Pages.css";
 
 function MovieSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState("");
+
   const [savedMovies, setSavedMovies] = useState(() => {
     try {
       const storedMovies = localStorage.getItem("savedMovies");
@@ -19,25 +21,24 @@ function MovieSearch() {
 
   const searchMovies = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (!searchTerm.trim()) {
-      setErrorMessage("Please enter a movie title.");
+      setError("Please enter a movie title.");
       return;
     }
-
-    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-
-    if (!apiKey) {
-      setErrorMessage("TMDB API key is missing. Check your .env file.");
-      return;
-    }
-
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
-      searchTerm
-    )}`;
 
     try {
-      setErrorMessage("");
+      const apiKey = process.env.REACT_APP_TMDB_API_KEY;
+
+      if (!apiKey) {
+        setError("TMDB API key is missing. Check your .env file.");
+        return;
+      }
+
+      const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
+        searchTerm
+      )}`;
 
       const response = await fetch(url);
 
@@ -48,8 +49,8 @@ function MovieSearch() {
       const data = await response.json();
       setMovies(data.results || []);
     } catch (error) {
-      setErrorMessage("Unable to load movies. Please check your API key.");
-      console.error(error);
+      console.error("Movie search failed:", error);
+      setError("Movie search failed. Please try again.");
     }
   };
 
@@ -66,14 +67,11 @@ function MovieSearch() {
   };
 
   return (
-    <main className="container">
+    <div className="page">
       <h1>Movie Search</h1>
 
-      <form className="search-form" onSubmit={searchMovies}>
-        <label htmlFor="movie-search">Search for a movie</label>
-
+      <form className="movie-form" onSubmit={searchMovies}>
         <input
-          id="movie-search"
           type="text"
           placeholder="Search for a movie"
           value={searchTerm}
@@ -83,13 +81,22 @@ function MovieSearch() {
         <button type="submit">Search</button>
       </form>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {error && <p className="warning">{error}</p>}
 
       <h2>Search Results</h2>
 
-      <div className="movie-list">
+      <div className="movie-grid">
         {movies.map((movie) => (
-          <section key={movie.id} className="movie-card">
+          <div key={movie.id} className="movie-card">
+            <img
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                  : "https://via.placeholder.com/300x450?text=No+Image"
+              }
+              alt={movie.title}
+            />
+
             <h3>{movie.title}</h3>
 
             <p>
@@ -102,17 +109,8 @@ function MovieSearch() {
 
             <p>{movie.overview || "No overview available."}</p>
 
-            {movie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                alt={`Poster for ${movie.title}`}
-              />
-            )}
-
-            <button type="button" onClick={() => saveMovie(movie)}>
-              Save Movie
-            </button>
-          </section>
+            <button onClick={() => saveMovie(movie)}>Save Movie</button>
+          </div>
         ))}
       </div>
 
@@ -121,9 +119,18 @@ function MovieSearch() {
       {savedMovies.length === 0 ? (
         <p>No saved movies yet.</p>
       ) : (
-        <div className="movie-list">
+        <div className="movie-grid">
           {savedMovies.map((movie) => (
-            <section key={movie.id} className="movie-card">
+            <div key={movie.id} className="movie-card">
+              <img
+                src={
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                    : "https://via.placeholder.com/300x450?text=No+Image"
+                }
+                alt={movie.title}
+              />
+
               <h3>{movie.title}</h3>
 
               <p>
@@ -134,14 +141,14 @@ function MovieSearch() {
                 <strong>Rating:</strong> {movie.vote_average || "N/A"}
               </p>
 
-              <button type="button" onClick={() => removeMovie(movie.id)}>
+              <button onClick={() => removeMovie(movie.id)}>
                 Remove Movie
               </button>
-            </section>
+            </div>
           ))}
         </div>
       )}
-    </main>
+    </div>
   );
 }
 

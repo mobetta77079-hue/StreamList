@@ -19,4 +19,16 @@ root.render(
 );
 
 reportWebVitals();
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then(() => {
+        console.log("Service Worker Registered Successfully");
+      })
+      .catch((error) => {
+        console.log("Service Worker Registration Failed:", error);
+      });
+  });
+}
 console.log("INDEX.JS IS RUNNING");
