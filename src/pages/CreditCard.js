@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Pages.css";
 
 function CreditCard() {
@@ -6,6 +6,15 @@ function CreditCard() {
   const [cardNumber, setCardNumber] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cvv, setCvv] = useState("");
+  const [savedCard, setSavedCard] = useState(null);
+
+  useEffect(() => {
+    const storedCard = localStorage.getItem("streamlist-credit-card");
+
+    if (storedCard) {
+      setSavedCard(JSON.parse(storedCard));
+    }
+  }, []);
 
   const formatCardNumber = (value) => {
     const numbersOnly = value.replace(/\D/g, "").slice(0, 16);
@@ -14,6 +23,10 @@ function CreditCard() {
 
   const handleCardNumberChange = (e) => {
     setCardNumber(formatCardNumber(e.target.value));
+  };
+
+  const maskCardNumber = (number) => {
+    return "**** **** **** " + number.slice(-4);
   };
 
   const saveCard = (e) => {
@@ -26,22 +39,41 @@ function CreditCard() {
       return;
     }
 
-    const savedCard = {
+    const newCard = {
       cardName,
       cardNumber,
       expiration,
       cvv,
     };
 
-    localStorage.setItem("streamlist-credit-card", JSON.stringify(savedCard));
+    localStorage.setItem(
+      "streamlist-credit-card",
+      JSON.stringify(newCard)
+    );
+
+    setSavedCard(newCard);
+
+    setCardName("");
+    setCardNumber("");
+    setExpiration("");
+    setCvv("");
 
     alert("Credit card saved successfully.");
+  };
+
+  const deleteCard = () => {
+    localStorage.removeItem("streamlist-credit-card");
+    setSavedCard(null);
   };
 
   return (
     <div className="page">
       <h1>Credit Card Management</h1>
-      <p>Enter your payment information to complete checkout.</p>
+
+      <p>
+        Enter your payment information and save it to your
+        account.
+      </p>
 
       <form className="credit-card-form" onSubmit={saveCard}>
         <label>
@@ -87,8 +119,39 @@ function CreditCard() {
           />
         </label>
 
-        <button type="submit">Save Card</button>
+        <button type="submit">
+          Save Credit Card
+        </button>
       </form>
+
+      {savedCard && (
+        <div className="saved-card">
+          <h2>Saved Credit Card</h2>
+
+          <p>
+            <strong>Name:</strong>{" "}
+            {savedCard.cardName}
+          </p>
+
+          <p>
+            <strong>Card Number:</strong>{" "}
+            {maskCardNumber(savedCard.cardNumber)}
+          </p>
+
+          <p>
+            <strong>Expiration:</strong>{" "}
+            {savedCard.expiration}
+          </p>
+
+          <p>
+            <strong>CVV:</strong> ***
+          </p>
+
+          <button onClick={deleteCard}>
+            Delete Saved Card
+          </button>
+        </div>
+      )}
     </div>
   );
 }
